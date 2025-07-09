@@ -2,9 +2,9 @@
 
 /** @type {import('@webcontainer/api').FileSystemTree} */
 export const BASE_WEB_CONTAINER_FILES = {
-    "package.json": {
-      "file": {
-        "contents": `
+  "package.json": {
+    file: {
+      contents: `
   {
     "name": "webcontainer-app",
     "private": true,
@@ -41,12 +41,12 @@ export const BASE_WEB_CONTAINER_FILES = {
       "autoprefixer": "^10.4.17"
     }
   }
-  `
-      }
+  `,
     },
-    "index.html": {
-      "file": {
-        "contents": `
+  },
+  "index.html": {
+    file: {
+      contents: `
   <!doctype html>
   <html lang="en">
     <head>
@@ -60,12 +60,12 @@ export const BASE_WEB_CONTAINER_FILES = {
       <script type="module" src="/src/main.tsx"></script>
     </body>
   </html>
-  `
-      }
+  `,
     },
-    "vite.config.ts": {
-      "file": {
-        "contents": `
+  },
+  "vite.config.ts": {
+    file: {
+      contents: `
   import { defineConfig } from 'vite';
   import react from '@vitejs/plugin-react';
   
@@ -75,12 +75,12 @@ export const BASE_WEB_CONTAINER_FILES = {
       exclude: ['lucide-react'],
     },
   });
-  `
-      }
+  `,
     },
-    "tailwind.config.js": {
-      "file": {
-        "contents": `
+  },
+  "tailwind.config.js": {
+    file: {
+      contents: `
   /** @type {import('tailwindcss').Config} */
   import forms from '@tailwindcss/forms';
   
@@ -95,24 +95,24 @@ export const BASE_WEB_CONTAINER_FILES = {
     },
     plugins: [forms],
   };
-  `
-      }
+  `,
     },
-    "postcss.config.js": {
-      "file": {
-        "contents": `
+  },
+  "postcss.config.js": {
+    file: {
+      contents: `
   export default {
     plugins: {
       tailwindcss: {},
       autoprefixer: {},
     },
   };
-  `
-      }
+  `,
     },
-    "tsconfig.json": {
-      "file": {
-        "contents": `
+  },
+  "tsconfig.json": {
+    file: {
+      contents: `
   {
     "compilerOptions": {
       "target": "ES2020",
@@ -134,12 +134,12 @@ export const BASE_WEB_CONTAINER_FILES = {
     "include": ["src"],
     "references": [{ "path": "./tsconfig.node.json" }]
   }
-  `
-      }
+  `,
     },
-    "tsconfig.node.json": {
-      "file": {
-        "contents": `
+  },
+  "tsconfig.node.json": {
+    file: {
+      contents: `
   {
     "compilerOptions": {
       "composite": true,
@@ -152,14 +152,14 @@ export const BASE_WEB_CONTAINER_FILES = {
     },
     "include": ["vite.config.ts", "postcss.config.js", "tailwind.config.js"]
   }
-  `
-      }
+  `,
     },
-    "src": {
-      "directory": {
-        "main.tsx": {
-          "file": {
-            "contents": `
+  },
+  src: {
+    directory: {
+      "main.tsx": {
+        file: {
+          contents: `
   import React from 'react';
   import ReactDOM from 'react-dom/client';
   import App from './App.tsx';
@@ -170,12 +170,12 @@ export const BASE_WEB_CONTAINER_FILES = {
       <App />
     </React.StrictMode>
   );
-  `
-          }
+  `,
         },
-        "index.css": {
-          "file": {
-            "contents": `
+      },
+      "index.css": {
+        file: {
+          contents: `
   @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
   
   @tailwind base;
@@ -186,12 +186,12 @@ export const BASE_WEB_CONTAINER_FILES = {
   body {
       @apply bg-slate-50 dark:bg-slate-900;
   }
-  `
-          }
+  `,
         },
-        "App.tsx": {
-          "file": {
-            "contents": `
+      },
+      "App.tsx": {
+        file: {
+          contents: `
   import React from 'react';
   // Components will be dynamically added or modified by AI.
   // This is just a minimal starting point.
@@ -205,47 +205,47 @@ export const BASE_WEB_CONTAINER_FILES = {
     );
   }
   export default App;
-  `
-          }
+  `,
         },
-        "vite-env.d.ts": {
-          "file": {
-            "contents": `/// <reference types="vite/client" />`
-          }
+      },
+      "vite-env.d.ts": {
+        file: {
+          contents: `/// <reference types="vite/client" />`,
         },
-        "lib": {
-          "directory": {
-            "utils.ts": {
-              "file": {
-                "contents": `
+      },
+      lib: {
+        directory: {
+          "utils.ts": {
+            file: {
+              contents: `
   import { type ClassValue, clsx } from "clsx"
   import { twMerge } from "tailwind-merge"
   
   export function cn(...inputs: ClassValue[]) {
     return twMerge(clsx(inputs))
   }
-  `
-              }
-            }
-          }
+  `,
+            },
+          },
         },
-        "types": {
-          "directory": {
-            "index.ts": {
-              "file": {
-                "contents": `
+      },
+      types: {
+        directory: {
+          "index.ts": {
+            file: {
+              contents: `
   // Export any global types if your base template needs them.
   // export type GlobalType = string;
-  `
-              }
-            }
-          }
+  `,
+            },
+          },
         },
-        "components": {
-          "directory": {
-            // AI will populate this directory with components.
-          }
-        }
-      }
-    }
-  };
+      },
+      components: {
+        directory: {
+          // AI will populate this directory with components.
+        },
+      },
+    },
+  },
+};
