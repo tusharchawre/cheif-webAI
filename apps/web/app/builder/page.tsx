@@ -1,4 +1,8 @@
 "use client";
+import { ChatInterface } from "@/components/ChatInterface";
+import { CodeInterface } from "@/components/CodeInterface";
+import { InputBox } from "@/components/InputBox";
+import { Card, CardHeader } from "@/components/ui/card";
 import { parseCheifArtifactToWebcontainerFiles } from "@/utils/parser";
 import { WebContainer } from "@webcontainer/api";
 import { useSearchParams } from "next/navigation";
@@ -11,7 +15,8 @@ export default function Builder() {
   const prompt = searchParams.get("prompt");
   const [loading, setLoading] = useState(true);
   const [filesToMount, setFilesToMount] = useState<any>(null);
-  const [url, setUrl] = useState("");
+  const [url, setUrl] = useState<string | undefined>();
+
 
   // Effect 1: Fetches the AI-generated project files (changes/additions)
   useEffect(() => {
@@ -71,7 +76,7 @@ export default function Builder() {
       return;
     }
 
-    let webcontainerInstance: WebContainer | null = null; // Declare instance for cleanup
+    let webcontainerInstance: WebContainer | null = null;
 
     async function bootAndRunWebContainer() {
       try {
@@ -150,7 +155,7 @@ export default function Builder() {
       }
     }
 
-    bootAndRunWebContainer();
+    // bootAndRunWebContainer();
 
     // Cleanup function for when component unmounts or filesToMount changes
     return () => {
@@ -163,31 +168,47 @@ export default function Builder() {
   }, [filesToMount]); // THIS IS CRUCIAL: Re-run this effect ONLY when filesToMount changes
 
   return (
-    <div style={{ display: "flex", flexDirection: "column", height: "100vh" }}>
-      {loading ? (
-        <div
-          style={{
-            flex: 1,
-            display: "flex",
-            justifyContent: "center",
-            alignItems: "center",
-            fontSize: "24px",
-            color: "#555",
-          }}
-        >
-          <p>
-            Setting up your development environment. This might take a moment...
-          </p>
+    // <div style={{ display: "flex", flexDirection: "column", height: "100vh" }}>
+    //   {loading ? (
+    //     <div
+    //       style={{
+    //         flex: 1,
+    //         display: "flex",
+    //         justifyContent: "center",
+    //         alignItems: "center",
+    //         fontSize: "24px",
+    //         color: "#555",
+    //       }}
+    //     >
+    //       <p>
+    //         Setting up your development environment. This might take a moment...
+    //       </p>
+    //     </div>
+    //   ) : (
+    //     <iframe
+    //       width="100%"
+    //       height="100%"
+    //       src={url}
+    //       title="WebContainer Preview"
+    //       style={{ border: "none", flex: 1 }}
+    //     />
+    //   )}
+    // </div>
+    <div className="h-screen w-full bg-black overflow-hidden">
+      <div className="grid w-full h-full grid-cols-3">
+        <div className="col-span-1 h-full bg-red-500 flex flex-col">
+          <div className="h-[80vh] bg-black">
+            <ChatInterface />
+          </div>
+          <div className="bg-background h-[20%] bottom-0">
+            <InputBox placeholder="Please enter the prompt here..." />
+          </div>
         </div>
-      ) : (
-        <iframe
-          width="100%"
-          height="100%"
-          src={url}
-          title="WebContainer Preview"
-          style={{ border: "none", flex: 1 }}
-        />
-      )}
+        
+        <div className="col-span-2 h-full bg-blue-300">
+          <CodeInterface />
+        </div>
+      </div>
     </div>
   );
 }

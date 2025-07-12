@@ -5,9 +5,6 @@ import { GoogleGenAI } from "@google/genai";
 import { BASE_PROMPT, getSystemPrompt } from "./utils/systemPrompts";
 import { reactBasePrompt } from "./utils/reactBase";
 import { nodeBasePrompt } from "./utils/nodeBase";
-import OpenAI from "openai";
-const client = new OpenAI();
-
 
 app.use(express.json())
 app.use(cors())
