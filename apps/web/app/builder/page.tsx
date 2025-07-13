@@ -1,6 +1,6 @@
 "use client";
-import { ChatInterface } from "@/components/ChatInterface";
-import { CodeInterface } from "@/components/CodeInterface";
+import { ChatInterface } from "@/components/builder/ChatInterface";
+import { CodeInterface } from "@/components/builder/CodeInterface";
 import { InputBox } from "@/components/InputBox";
 import { Card, CardHeader } from "@/components/ui/card";
 import { parseCheifArtifactToWebcontainerFiles } from "@/utils/parser";
@@ -16,7 +16,7 @@ export default function Builder() {
   const [loading, setLoading] = useState(true);
   const [filesToMount, setFilesToMount] = useState<any>(null);
   const [url, setUrl] = useState<string | undefined>();
-
+  const [aiResponse, setAiResponse] = useState()
 
   // Effect 1: Fetches the AI-generated project files (changes/additions)
   useEffect(() => {
@@ -48,6 +48,8 @@ export default function Builder() {
           "Raw AI Response XML (from /chat):",
           aiResponseData.response,
         );
+
+        setAiResponse(aiResponseData)
 
         const aiGeneratedFiles =
           parseCheifArtifactToWebcontainerFiles(aiResponseData);
@@ -185,13 +187,7 @@ export default function Builder() {
     //       </p>
     //     </div>
     //   ) : (
-    //     <iframe
-    //       width="100%"
-    //       height="100%"
-    //       src={url}
-    //       title="WebContainer Preview"
-    //       style={{ border: "none", flex: 1 }}
-    //     />
+    //    
     //   )}
     // </div>
     <div className="h-screen w-full bg-black overflow-hidden">
@@ -204,9 +200,9 @@ export default function Builder() {
             <InputBox placeholder="Please enter the prompt here..." />
           </div>
         </div>
-        
+
         <div className="col-span-2 h-full bg-blue-300">
-          <CodeInterface />
+          <CodeInterface url={url} responseData={aiResponse} />
         </div>
       </div>
     </div>

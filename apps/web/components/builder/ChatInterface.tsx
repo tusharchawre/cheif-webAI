@@ -1,7 +1,7 @@
 "use client"
 import { cn } from "@/lib/utils"
 import { useState } from "react"
-import { ScrollArea } from "./ui/scroll-area"
+import { ScrollArea } from "../ui/scroll-area"
 
 type Message = {
     type: "user" | "agent",

@@ -1,3 +1,5 @@
+import { FileType } from "../components/CodeInterface";
+
 /** @type {import('@webcontainer/api').FileSystemTree} */
 
 /**
@@ -40,7 +42,7 @@ export function parseCheifArtifactToWebcontainerFiles(aiResponseObject: any) {
  * @param {string} path The full path to the file (e.g., "src/components/Header.tsx").
  * @param {string} contents The content of the file.
  */
-function addFileToTree(tree, path, contents) {
+function addFileToTree(tree: any, path: string, contents: string) {
   const parts = path.split("/"); // Split the path into directory/file names
   let current = tree; // Start at the root of the tree
 
@@ -66,6 +68,37 @@ function addFileToTree(tree, path, contents) {
       current = current[part].directory;
     }
   }
+}
+
+function generateUniqueId(path: string, name: string) {
+  return `${path}-${name}-${Math.random().toString(36).substring(2, 9)}`;
+}
+
+export function convertFileSystemTreeToFileTypeArray(tree: any, currentPath: string = ''): FileType[] {
+  const fileArray: FileType[] = [];
+
+  for (const name in tree) {
+    const item = tree[name];
+    const fullPath = currentPath ? `${currentPath}/${name}` : name;
+
+    if (item.file) {
+      fileArray.push({
+        id: generateUniqueId(fullPath, name),
+        type: "file",
+        name: name,
+        content: item.file.contents,
+      });
+    } else if (item.directory) {
+      fileArray.push({
+        id: generateUniqueId(fullPath, name),
+        type: "directory",
+        name: name,
+        children: convertFileSystemTreeToFileTypeArray(item.directory, fullPath),
+      });
+    }
+  }
+
+  return fileArray;
 }
 
 // Example Usage:
