@@ -157,7 +157,7 @@ export default function Builder() {
       }
     }
 
-    // bootAndRunWebContainer();
+    bootAndRunWebContainer();
 
     // Cleanup function for when component unmounts or filesToMount changes
     return () => {

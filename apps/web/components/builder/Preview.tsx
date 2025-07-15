@@ -1,7 +1,7 @@
 "use client"
 
 import { motion } from "framer-motion";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 interface Props {
     url?: string
@@ -9,17 +9,23 @@ interface Props {
 
 export const Preview = ({ url }: Props) => {
     const [loading, setLoading] = useState(true);
+    const [previewUrl, setPreviewUrl] = useState<string | undefined>()
+
+    useEffect(()=>{
+        setLoading(false)
+        setPreviewUrl(url)
+    }, [url])
+
 
     return (
         <div className="w-full h-full flex items-center justify-center flex-grow z-10">
-            {url && !loading ? (
+            {previewUrl && !loading ? (
                 <iframe
                     width="100%"
                     height="100%"
-                    src={url}
+                    src={previewUrl}
                     title="WebContainer Preview"
                     style={{ border: "none", flex: 1 }}
-                    onLoad={() => setLoading(false)}
                 />
             ) : (
                 <div className="relative flex items-center justify-center h-full w-full bg-muted text-white text-4xl font-bold overflow-hidden">
